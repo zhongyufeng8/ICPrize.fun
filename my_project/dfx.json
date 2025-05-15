@@ -1,0 +1,33 @@
+{
+  "canisters": {
+    "my_project_backend": {
+      "declarations": {
+        "node_compatibility": true
+      },
+      "main": "src/my_project_backend/main.mo",
+      "type": "motoko"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "dfx": "0.26.0",
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    },
+    "ic": {
+      "providers": ["https://ic0.app"],
+      "type": "persistent"
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1,
+  "wallet": {
+    "default": "kxm6m-xtza3-rqdz5-aeyub-gktxo-eua6x-6jvuc-u37zy-sehyx-kx3gi-hae"
+  }
+}

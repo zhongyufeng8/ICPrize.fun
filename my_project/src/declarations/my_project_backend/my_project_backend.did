@@ -1,0 +1,81 @@
+type TransferResult = 
+ variant {
+   err: text;
+   ok: nat;
+ };
+type TokenInfo = 
+ record {
+   decimals: nat8;
+   fee: nat;
+   ledger: text;
+   logo: opt text;
+   symbol: text;
+ };
+type Time = int;
+type Result_2 = 
+ variant {
+   err: text;
+   ok: TokenInfo;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: text;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+type PoolStatus = 
+ variant {
+   Active;
+   Canceled;
+   Completed;
+ };
+type Pool = 
+ record {
+   betAmount: nat;
+   bets: vec Bet;
+   createdAt: Time;
+   creator: text;
+   id: text;
+   initialAmount: nat;
+   lastBetTime: opt Time;
+   status: PoolStatus;
+   token: TokenInfo;
+   totalAmount: nat;
+   winnerCount: nat;
+ };
+type Message = 
+ record {
+   content: text;
+   sender: text;
+   timestamp: Time;
+ };
+type Bet = 
+ record {
+   amount: nat;
+   timestamp: Time;
+   user: text;
+ };
+service : {
+  addToken: (text) -> (Result_2);
+  createPool: (text, nat, nat, nat) -> (Result_1);
+  getActivePools: () -> (vec Pool) query;
+  getAllTokenSymbols: () -> (vec text) query;
+  getAllTokens: () -> (vec TokenInfo) query;
+  getCountdown: (text) -> (opt int) query;
+  getLatestMessages: (nat) -> (vec Message) query;
+  getMinimumBet: (text) -> (opt nat) query;
+  getPool: (text) -> (opt Pool) query;
+  getSystemInfo: () -> (text) query;
+  getToken: (text) -> (opt TokenInfo) query;
+  hasNewMessages: () -> (bool) query;
+  healthCheck: () -> (bool) query;
+  placeBet: (text) -> (Result);
+  sendMessage: (text) -> ();
+  settlePool: (text) -> (Result);
+  transferToken: (text, text, nat) -> (TransferResult);
+  updateLastMessageCheck: () -> ();
+}
